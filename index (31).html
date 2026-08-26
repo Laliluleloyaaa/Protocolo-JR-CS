@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protocolo Juego Responsable</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0f1117;--bg2:#181b24;--bg3:#1f2330;--bd:#2a2f3d;--bd2:#3a4055;
+    --t1:#e2e8f0;--t2:#8892a4;--t3:#4a5568;
+    --accent:#4f8ef7;--accent2:#34d399;--warn:#f59e0b;--danger:#f87171;--purple:#a78bfa;
+    --s-bg:rgba(52,211,153,.08);--s-bd:rgba(52,211,153,.4);--s-t:#34d399;
+    --w-bg:rgba(245,158,11,.08);--w-bd:rgba(245,158,11,.4);--w-t:#f59e0b;
+    --d-bg:rgba(248,113,113,.08);--d-bd:rgba(248,113,113,.4);--d-t:#f87171;
+    --i-bg:rgba(79,142,247,.08);--i-bd:rgba(79,142,247,.4);--i-t:#4f8ef7;
+    --p-bg:rgba(167,139,250,.08);--p-bd:rgba(167,139,250,.4);--p-t:#a78bfa;
+    --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.7;min-height:100vh;}
+  header{background:var(--bg2);border-bottom:1px solid var(--bd2);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;gap:16px;flex-wrap:wrap;}
+  .logo{font-family:var(--mono);font-size:14px;color:var(--accent);letter-spacing:.04em;}
+  .logo span{color:var(--t2);}
+  .header-controls{display:flex;align-items:center;gap:16px;}
+  .ctrl-group{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;height:64px;align-self:center;}
+  .ctrl-label{font-size:10px;color:var(--t3);letter-spacing:.07em;text-transform:uppercase;font-family:var(--mono);line-height:1;}
+  .toggle-group{display:flex;background:var(--bg);border:1px solid var(--bd2);border-radius:7px;padding:2px;gap:2px;}
+  .tbtn{background:transparent;border:none;border-radius:5px;color:var(--t2);cursor:pointer;font-size:13px;padding:7px 13px;display:flex;align-items:center;gap:4px;transition:all .15s;white-space:nowrap;}
+  .tbtn i{font-size:13px;}
+  .tbtn:hover{color:var(--t1);background:var(--bg3);}
+  .tbtn.active{background:var(--bg3);color:var(--t1);border:1px solid var(--bd);}
+  .ctrl-sep{width:1px;height:64px;background:var(--bd2);align-self:center;}
+  .reset-btn{background:var(--bg3);border:1px solid var(--bd2);border-radius:10px;color:var(--t2);cursor:pointer;font-size:12px;font-family:var(--mono);font-weight:500;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;align-self:center;}
+  .reset-btn i{font-size:18px;color:var(--t1);line-height:1;}
+  .reset-btn:hover{border-color:var(--danger);color:var(--danger);background:rgba(248,113,113,.06);}
+  .reset-btn:hover i{color:var(--danger);}
+  .container{max-width:860px;margin:0 auto;padding:28px 20px 80px;}
+
+  .section-title{font-size:13px;font-family:var(--mono);color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin:26px 0 10px;}
+  .section-title:first-child{margin-top:0;}
+
+  .country-selector{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:6px;}
+  .country-btn{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:18px 14px;cursor:pointer;text-align:center;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .country-btn:hover{border-color:var(--bd2);}
+  .country-btn.active{border-color:var(--accent);background:var(--i-bg);}
+  .country-flag{width:36px;height:26px;object-fit:cover;border-radius:3px;display:block;box-shadow:0 0 0 1px var(--bd2);}
+  .country-name{font-size:14px;font-weight:500;color:var(--t2);}
+  .country-btn.active .country-name{color:var(--t1);}
+  .country-sub{font-size:11px;color:var(--t3);font-family:var(--mono);}
+
+  .level-selector{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:6px;}
+  .level-btn{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:16px 10px;cursor:pointer;text-align:center;transition:all .2s;}
+  .level-btn:hover{border-color:var(--bd2);}
+  .level-num{font-family:var(--mono);font-size:20px;font-weight:600;color:var(--t2);}
+  .level-name{font-size:12px;color:var(--t3);margin-top:4px;font-family:var(--mono);}
+  .level-btn.active .level-num{color:var(--t1);}
+  .level-btn.lvl0.active{border-color:var(--i-bd);background:var(--i-bg);}
+  .level-btn.lvl0.active .level-num{color:var(--i-t);}
+  .level-btn.lvl1.active{border-color:var(--w-bd);background:var(--w-bg);}
+  .level-btn.lvl1.active .level-num{color:var(--w-t);}
+  .level-btn.lvl2.active{border-color:var(--d-bd);background:var(--d-bg);}
+  .level-btn.lvl2.active .level-num{color:var(--d-t);}
+  .level-btn.lvl3.active{border-color:var(--p-bd);background:var(--p-bg);}
+  .level-btn.lvl3.active .level-num{color:var(--p-t);}
+
+  .fields-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px;align-items:flex-end;}
+  .field-group{display:flex;flex-direction:column;gap:4px;}
+  .field-group label{font-size:14px;color:var(--t2);font-family:var(--mono);}
+  .ticket-in{background:var(--bg3);border:1px solid var(--bd2);border-radius:8px;color:var(--accent);font-family:var(--mono);font-size:16px;padding:9px 14px;outline:none;width:200px;}
+  .ticket-in:focus{border-color:var(--accent);}
+
+  .hidden{display:none!important;}
+
+  .flag-card{background:var(--bg2);border:1px solid var(--bd2);border-radius:10px;margin-bottom:14px;overflow:hidden;}
+  .flag-card::before{content:'';display:block;height:3px;background:linear-gradient(90deg,var(--accent),transparent);}
+  .flag-card.lvl0::before{background:linear-gradient(90deg,var(--i-t),transparent);}
+  .flag-card.lvl1::before{background:linear-gradient(90deg,var(--w-t),transparent);}
+  .flag-card.lvl2::before{background:linear-gradient(90deg,var(--d-t),transparent);}
+  .flag-card.lvl3::before{background:linear-gradient(90deg,var(--p-t),transparent);}
+  .flag-badge-row{display:flex;align-items:center;gap:10px;padding:16px 18px 6px;flex-wrap:wrap;}
+  .flag-badge{font-family:var(--mono);font-size:15px;font-weight:600;padding:8px 16px;border-radius:8px;border:1px solid var(--i-bd);background:var(--i-bg);color:var(--i-t);letter-spacing:.03em;}
+  .flag-badge.lvl1{border-color:var(--w-bd);background:var(--w-bg);color:var(--w-t);}
+  .flag-badge.lvl2{border-color:var(--d-bd);background:var(--d-bg);color:var(--d-t);}
+  .flag-badge.lvl3{border-color:var(--p-bd);background:var(--p-bg);color:var(--p-t);}
+
+  .out-item{background:var(--bg);border:1px solid var(--bd2);border-radius:8px;margin:10px 16px;overflow:hidden;}
+  .out-item:last-child{margin-bottom:16px;}
+  .out-header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 6px;gap:8px;}
+  .out-label{font-size:13px;color:var(--t1);font-family:var(--sans);font-weight:500;display:flex;align-items:center;gap:6px;}
+  .out-label i{color:var(--t2);font-size:14px;}
+  .copy-btn-sm{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:7px 14px;background:var(--i-t);border:1px solid var(--i-bd);border-radius:8px;color:#0f1117;cursor:pointer;transition:all .2s;font-weight:600;white-space:nowrap;}
+  .copy-btn-sm:hover{background:#6ba3f9;transform:translateY(-1px);box-shadow:0 3px 8px rgba(79,142,247,.25);}
+  .copy-btn-sm:active{transform:translateY(0);}
+  .copy-btn-sm:disabled{opacity:.25;cursor:not-allowed;transform:none;box-shadow:none;}
+  .out-text{font-family:var(--mono);font-size:13px;color:var(--t1);padding:4px 12px 12px;line-height:1.8;white-space:pre-wrap;}
+  .out-text.msg{font-family:var(--sans);font-size:14px;line-height:1.7;}
+  .out-text.msg a{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--i-bd);}
+  .out-text.msg a:hover{border-bottom-style:solid;}
+
+  .macro-note{font-size:12px;color:var(--t2);display:flex;align-items:center;gap:6px;margin:0 16px 10px;font-family:var(--mono);}
+  .macro-note i{color:var(--purple);font-size:14px;}
+
+  .rem-missing{font-size:13px;color:var(--w-t);display:flex;align-items:center;gap:5px;margin:0 16px 10px;font-family:var(--mono);}
+
+  .pending-box{background:var(--bg);border:1px dashed var(--bd2);border-radius:8px;margin:10px 16px 16px;padding:16px;text-align:center;color:var(--t3);font-size:13px;font-family:var(--mono);}
+  .pending-box i{font-size:20px;display:block;margin-bottom:6px;}
+
+  .empty-state{background:var(--bg2);border:1px dashed var(--bd2);border-radius:10px;padding:28px 20px;text-align:center;color:var(--t3);font-size:14px;font-family:var(--mono);margin-top:10px;}
+  .empty-state i{font-size:26px;display:block;margin-bottom:8px;color:var(--t3);}
+
+  .view-full-content{}
+  .view-simple-content{display:none;}
+  body.simple-view .view-full-content{display:none;}
+  body.simple-view .view-simple-content{display:block;}
+
+  .simple-card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:10px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .simple-card-left{flex:1;min-width:0;}
+  .simple-card-title{font-size:14px;font-weight:500;color:var(--t1);display:flex;align-items:center;gap:6px;}
+  .simple-card-title i{color:var(--t2);font-size:15px;}
+  .simple-card-sub{font-size:12px;color:var(--t2);font-family:var(--mono);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px;}
+  .simple-badge-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">RushBet <span>/ Protocolo Juego Responsable</span></div>
+  <div class="header-controls">
+    <div class="ctrl-group">
+      <span class="ctrl-label">Vista</span>
+      <div class="toggle-group">
+        <button class="tbtn active" id="view-full" onclick="setView('full')"><i class="ti ti-layout-list"></i> Ampliada</button>
+        <button class="tbtn" id="view-simple" onclick="setView('simple')"><i class="ti ti-bolt"></i> Simplificada</button>
+      </div>
+    </div>
+    <div class="ctrl-sep"></div>
+    <button class="reset-btn" onclick="resetAll()"><i class="ti ti-refresh"></i>Nuevo caso</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="section-title">1. País</div>
+  <div class="country-selector">
+    <button class="country-btn" id="btn-CO" onclick="selectCountry('CO')">
+      <img class="country-flag" src="https://flagcdn.com/w80/co.png" alt="Colombia">
+      <span class="country-name">Colombia</span>
+      <span class="country-sub">CO</span>
+    </button>
+    <button class="country-btn" id="btn-MX" onclick="selectCountry('MX')">
+      <img class="country-flag" src="https://flagcdn.com/w80/mx.png" alt="México">
+      <span class="country-name">México</span>
+      <span class="country-sub">MX</span>
+    </button>
+    <button class="country-btn" id="btn-PE" onclick="selectCountry('PE')">
+      <img class="country-flag" src="https://flagcdn.com/w80/pe.png" alt="Perú">
+      <span class="country-name">Perú</span>
+      <span class="country-sub">PE</span>
+    </button>
+  </div>
+
+  <div class="section-title">2. Nivel de Juego Responsable</div>
+  <div class="level-selector">
+    <button class="level-btn lvl0" id="btn-lvl0" onclick="selectLevel(0)">
+      <div class="level-num">0</div>
+      <div class="level-name">Sospecha</div>
+    </button>
+    <button class="level-btn lvl1" id="btn-lvl1" onclick="selectLevel(1)">
+      <div class="level-num">1</div>
+      <div class="level-name">Nivel 1</div>
+    </button>
+    <button class="level-btn lvl2" id="btn-lvl2" onclick="selectLevel(2)">
+      <div class="level-num">2</div>
+      <div class="level-name">Nivel 2</div>
+    </button>
+    <button class="level-btn lvl3" id="btn-lvl3" onclick="selectLevel(3)">
+      <div class="level-num">3</div>
+      <div class="level-name">Nivel 3</div>
+    </button>
+  </div>
+
+  <div id="ticket-wrap" class="hidden">
+    <div class="section-title">3. Datos del caso</div>
+    <div class="fields-row">
+      <div class="field-group"><label>Ticket #</label><input type="text" class="ticket-in" id="t-case" placeholder="XXXXXX" oninput="updateAll()"></div>
+    </div>
+  </div>
+
+  <div class="view-full-content" id="result-wrap-full"></div>
+  <div class="view-simple-content" id="result-wrap-simple"></div>
+
+  <div class="empty-state" id="empty-state">
+    <i class="ti ti-list-check"></i>
+    Selecciona el país y el nivel de Juego Responsable para generar el flag y la macro base.
+  </div>
+
+</div>
+
+<script>
+let curCountry = null; // 'CO' | 'MX' | 'PE'
+let curLevel = null;   // 0 | 1 | 2 | 3
+
+const LEVEL_CLASS = {0:'lvl0',1:'lvl1',2:'lvl2',3:'lvl3'};
+
+// Macros base por país y nivel. Solo Nivel 0 tiene macro definida por ahora;
+// los niveles 1-3 quedan pendientes de definición y se agregarán después.
+const MACROS = {
+  CO: {
+    0: `¡Te entendemos! El juego debe ser una experiencia de entretenimiento 🙏
+Si te preocupa tu actividad, te recomendamos revisar las herramientas de Juego Responsable que ofrecemos: [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.co/hc/es/articles/360002777854--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-) o [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.co/hc/es/articles/7115159561751--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla-).
+¡Ánimo! Si necesitas más información, estamos aquí para ayudarte 🤗`
+  },
+  MX: {
+    0: `¡Te entendemos! El juego debe ser una experiencia de entretenimiento 🙏
+Si te preocupa tu actividad, te recomendamos revisar las herramientas de Juego Responsable que ofrecemos: [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.mx/hc/es-419/articles/5723695975831--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-) o [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.mx/hc/es-419/articles/5723695975831--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-).
+¡Ánimo! Si necesitas más información, estamos aquí para ayudarte 🤗`
+  },
+  PE: {
+    0: `¡Te entendemos! El juego debe ser una experiencia de entretenimiento 🙏
+Si te preocupa tu actividad, te recomendamos revisar las herramientas de Juego Responsable que ofrecemos desde la sección de Juego Responsable > Límites o [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.pe/hc/es-419/articles/24417685646103--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla).
+¡Ánimo! Si necesitas más información, estamos aquí para ayudarte 🤗`
+  }
+};
+
+const COUNTRY_NAMES = { CO: 'Colombia', MX: 'México', PE: 'Perú' };
+const LEVEL_NAMES = { 0: 'Nivel 0 - Sospecha', 1: 'Nivel 1', 2: 'Nivel 2', 3: 'Nivel 3' };
+
+let lastMacroRaw = '';
+
+function mdToHtml(text) {
+  const escaped = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return escaped.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+}
+
+function selectCountry(c) {
+  curCountry = c;
+  ['CO','MX','PE'].forEach(k => document.getElementById(`btn-${k}`).classList.toggle('active', k === c));
+  updateAll();
+}
+
+function selectLevel(l) {
+  curLevel = l;
+  [0,1,2,3].forEach(k => document.getElementById(`btn-lvl${k}`).classList.toggle('active', k === l));
+  updateAll();
+}
+
+function setView(v) {
+  document.body.classList.toggle('simple-view', v === 'simple');
+  document.getElementById('view-full').classList.toggle('active', v === 'full');
+  document.getElementById('view-simple').classList.toggle('active', v === 'simple');
+}
+
+function updateAll() {
+  const ticketWrap = document.getElementById('ticket-wrap');
+  const resultFull = document.getElementById('result-wrap-full');
+  const resultSimple = document.getElementById('result-wrap-simple');
+  const empty = document.getElementById('empty-state');
+
+  if (curCountry === null || curLevel === null) {
+    ticketWrap.classList.add('hidden');
+    resultFull.innerHTML = '';
+    resultSimple.innerHTML = '';
+    empty.classList.remove('hidden');
+    return;
+  }
+
+  ticketWrap.classList.remove('hidden');
+  empty.classList.add('hidden');
+
+  const ticket = document.getElementById('t-case').value.trim();
+  const ticketDisplay = ticket || '__';
+  const missing = !ticket;
+  const lvlClass = LEVEL_CLASS[curLevel];
+  const flagText = `Responsible Gaming - Level ${curLevel} Ticket# ${ticketDisplay}`;
+  const macroRaw = (MACROS[curCountry] && MACROS[curCountry][curLevel]) ? MACROS[curCountry][curLevel] : null;
+  lastMacroRaw = macroRaw || '';
+
+  const flagBlock = `
+    <div class="flag-card ${lvlClass}">
+      <div class="flag-badge-row">
+        <i class="ti ti-flag-3" style="font-size:18px;color:var(--t2)"></i>
+        <span class="flag-badge ${lvlClass}">${flagText}</span>
+        <span style="font-size:12px;color:var(--t3);font-family:var(--mono)">${COUNTRY_NAMES[curCountry]} · ${LEVEL_NAMES[curLevel]}</span>
+      </div>
+      ${missing ? '<div class="rem-missing"><i class="ti ti-alert-circle" style="font-size:13px"></i> Completa el ticket para habilitar la copia del flag</div>' : ''}
+      <div class="out-item">
+        <div class="out-header">
+          <span class="out-label"><i class="ti ti-flag-3"></i>Flag a dejar en la cuenta</span>
+          <button class="copy-btn-sm" id="btn-copy-flag" onclick="copyPlain('${flagText.replace(/'/g,"\\'")}', this)" ${missing ? 'disabled' : ''}><i class="ti ti-copy" style="font-size:13px"></i> Copiar</button>
+        </div>
+        <div class="out-text" id="txt-flag">${flagText}</div>
+      </div>
+      ${macroRaw ? `
+      <div class="out-item">
+        <div class="out-header">
+          <span class="out-label"><i class="ti ti-message-chatbot"></i>Macro para el cliente</span>
+          <button class="copy-btn-sm" onclick="copyRaw(this)"><i class="ti ti-copy" style="font-size:13px"></i> Copiar</button>
+        </div>
+        <div class="out-text msg" id="txt-macro">${mdToHtml(macroRaw)}</div>
+      </div>
+      <div class="macro-note"><i class="ti ti-info-circle"></i>Esta es una base de macro: personalízala según el caso antes de enviarla.</div>
+      ` : `
+      <div class="pending-box">
+        <i class="ti ti-hourglass-empty"></i>
+        Aún no hay macro base definida para ${LEVEL_NAMES[curLevel]} en ${COUNTRY_NAMES[curCountry]}. Se agregará próximamente.
+      </div>
+      `}
+    </div>
+  `;
+
+  resultFull.innerHTML = `<div class="section-title">4. Acciones a realizar</div>${flagBlock}`;
+
+  // ---- Vista simplificada ----
+  let simpleHtml = `
+    <div class="section-title">4. Acciones a realizar</div>
+    <div class="simple-badge-row">
+      <i class="ti ti-flag-3" style="font-size:16px;color:var(--t2)"></i>
+      <span class="flag-badge ${lvlClass}">${flagText}</span>
+    </div>
+    ${missing ? '<div class="rem-missing"><i class="ti ti-alert-circle" style="font-size:13px"></i> Completa el ticket para habilitar la copia del flag</div>' : ''}
+    <div class="simple-card">
+      <div class="simple-card-left">
+        <div class="simple-card-title"><i class="ti ti-flag-3"></i>Flag a dejar en la cuenta</div>
+        <div class="simple-card-sub">${flagText}</div>
+      </div>
+      <button class="copy-btn-sm" onclick="copyPlain('${flagText.replace(/'/g,"\\'")}', this)" ${missing ? 'disabled' : ''}><i class="ti ti-copy" style="font-size:13px"></i> Copiar</button>
+    </div>
+  `;
+
+  if (macroRaw) {
+    simpleHtml += `
+    <div class="simple-card">
+      <div class="simple-card-left">
+        <div class="simple-card-title"><i class="ti ti-message-chatbot"></i>Macro para el cliente</div>
+        <div class="simple-card-sub">Base de macro — personalizar antes de enviar</div>
+      </div>
+      <button class="copy-btn-sm" onclick="copyRaw(this)"><i class="ti ti-copy" style="font-size:13px"></i> Copiar</button>
+    </div>`;
+  } else {
+    simpleHtml += `
+    <div class="pending-box">
+      <i class="ti ti-hourglass-empty"></i>
+      Aún no hay macro base definida para ${LEVEL_NAMES[curLevel]} en ${COUNTRY_NAMES[curCountry]}. Se agregará próximamente.
+    </div>`;
+  }
+
+  resultSimple.innerHTML = simpleHtml;
+}
+
+function copyPlain(text, btn) {
+  if (btn.disabled) return;
+  navigator.clipboard.writeText(text).then(() => flashCopied(btn));
+}
+
+function copyRaw(btn) {
+  navigator.clipboard.writeText(lastMacroRaw.trim()).then(() => flashCopied(btn));
+}
+
+function flashCopied(btn) {
+  const original = btn.innerHTML;
+  btn.innerHTML = '<i class="ti ti-check" style="font-size:13px"></i> ¡Copiado!';
+  setTimeout(() => btn.innerHTML = original, 2000);
+}
+
+function resetAll() {
+  if (!confirm('¿Iniciar un nuevo caso? Se borrará el progreso actual.')) return;
+  curCountry = null;
+  curLevel = null;
+  document.getElementById('t-case').value = '';
+  ['CO','MX','PE'].forEach(k => document.getElementById(`btn-${k}`).classList.remove('active'));
+  [0,1,2,3].forEach(k => document.getElementById(`btn-lvl${k}`).classList.remove('active'));
+  updateAll();
+}
+
+updateAll();
+</script>
+</body>
+</html>
