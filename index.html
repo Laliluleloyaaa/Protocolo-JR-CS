@@ -281,13 +281,13 @@ function updateAll() {
     <div class="flag-card ${lvlClass}">
       <div class="flag-badge-row">
         <i class="ti ti-flag-3" style="font-size:18px;color:var(--t2)"></i>
-        <span class="flag-badge ${lvlClass}">${flagText}</span>
+        <span class="flag-badge ${lvlClass}">Problem Gambler</span>
         <span style="font-size:12px;color:var(--t3);font-family:var(--mono)">${COUNTRY_NAMES[curCountry]} · ${LEVEL_NAMES[curLevel]}</span>
       </div>
-      ${missing ? '<div class="rem-missing"><i class="ti ti-alert-circle" style="font-size:13px"></i> Completa el ticket para habilitar la copia del flag</div>' : ''}
+      ${missing ? '<div class="rem-missing"><i class="ti ti-alert-circle" style="font-size:13px"></i> Completa el ticket para habilitar la copia del comentario</div>' : ''}
       <div class="out-item">
         <div class="out-header">
-          <span class="out-label"><i class="ti ti-flag-3"></i>Flag a dejar en la cuenta</span>
+          <span class="out-label"><i class="ti ti-message-2"></i>Comentario a dejar en el flag</span>
           <button class="copy-btn-sm" id="btn-copy-flag" onclick="copyPlain('${flagText.replace(/'/g,"\\'")}', this)" ${missing ? 'disabled' : ''}><i class="ti ti-copy" style="font-size:13px"></i> Copiar</button>
         </div>
         <div class="out-text" id="txt-flag">${flagText}</div>
@@ -317,12 +317,12 @@ function updateAll() {
     <div class="section-title">4. Acciones a realizar</div>
     <div class="simple-badge-row">
       <i class="ti ti-flag-3" style="font-size:16px;color:var(--t2)"></i>
-      <span class="flag-badge ${lvlClass}">${flagText}</span>
+      <span class="flag-badge ${lvlClass}">Problem Gambler</span>
     </div>
-    ${missing ? '<div class="rem-missing"><i class="ti ti-alert-circle" style="font-size:13px"></i> Completa el ticket para habilitar la copia del flag</div>' : ''}
+    ${missing ? '<div class="rem-missing"><i class="ti ti-alert-circle" style="font-size:13px"></i> Completa el ticket para habilitar la copia del comentario</div>' : ''}
     <div class="simple-card">
       <div class="simple-card-left">
-        <div class="simple-card-title"><i class="ti ti-flag-3"></i>Flag a dejar en la cuenta</div>
+        <div class="simple-card-title"><i class="ti ti-message-2"></i>Comentario a dejar en el flag</div>
         <div class="simple-card-sub">${flagText}</div>
       </div>
       <button class="copy-btn-sm" onclick="copyPlain('${flagText.replace(/'/g,"\\'")}', this)" ${missing ? 'disabled' : ''}><i class="ti ti-copy" style="font-size:13px"></i> Copiar</button>
