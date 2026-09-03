@@ -54,7 +54,7 @@
   .level-btn{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:16px 10px;cursor:pointer;text-align:center;transition:all .2s;}
   .level-btn:hover{border-color:var(--bd2);}
   .level-num{font-family:var(--mono);font-size:20px;font-weight:600;color:var(--t2);}
-  .level-name{font-size:12px;color:var(--t3);margin-top:4px;font-family:var(--mono);}
+  .level-name{font-size:11px;color:var(--t3);margin-top:4px;font-family:var(--mono);line-height:1.3;}
   .level-btn.active .level-num{color:var(--t1);}
   .level-btn.lvl0.active{border-color:var(--i-bd);background:var(--i-bg);}
   .level-btn.lvl0.active .level-num{color:var(--i-t);}
@@ -64,6 +64,29 @@
   .level-btn.lvl2.active .level-num{color:var(--d-t);}
   .level-btn.lvl3.active{border-color:var(--p-bd);background:var(--p-bg);}
   .level-btn.lvl3.active .level-num{color:var(--p-t);}
+
+  .scenario-selector{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px;}
+  .scenario-btn{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:16px;cursor:pointer;text-align:center;transition:all .2s;}
+  .scenario-btn:hover{border-color:var(--bd2);}
+  .scenario-btn.active{border-color:var(--w-bd);background:var(--w-bg);}
+  .scenario-title{font-size:14px;font-weight:600;color:var(--t1);display:flex;align-items:center;justify-content:center;gap:6px;}
+  .scenario-title i{font-size:15px;color:var(--t2);}
+  .scenario-btn.active .scenario-title i{color:var(--w-t);}
+
+  .channel-selector{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px;}
+  .channel-btn{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:14px;cursor:pointer;font-size:14px;font-weight:500;color:var(--t2);display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;font-family:var(--sans);}
+  .channel-btn:hover{border-color:var(--bd2);color:var(--t1);}
+  .channel-btn.active{border-color:var(--i-bd);background:var(--i-bg);color:var(--i-t);}
+  .channel-btn i{font-size:17px;}
+
+  .answer-selector{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px;}
+  .answer-btn{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:14px;cursor:pointer;font-size:14px;font-weight:500;color:var(--t2);display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;font-family:var(--sans);}
+  .answer-btn:hover{border-color:var(--bd2);color:var(--t1);}
+  .answer-btn.si.active{border-color:var(--d-bd);background:var(--d-bg);color:var(--d-t);}
+  .answer-btn.no.active{border-color:var(--s-bd);background:var(--s-bg);color:var(--s-t);}
+  .answer-btn i{font-size:17px;}
+
+  .placeholder-hl{background:var(--w-bg);color:var(--w-t);padding:2px 8px;border-radius:5px;font-weight:600;border:1px dashed var(--w-bd);display:inline-block;}
 
   .fields-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px;align-items:flex-end;}
   .field-group{display:flex;flex-direction:column;gap:4px;}
@@ -99,7 +122,12 @@
   .out-text.msg a{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--i-bd);}
   .out-text.msg a:hover{border-bottom-style:solid;}
 
-  .macro-note{font-size:12px;color:var(--t2);display:flex;align-items:center;gap:6px;margin:0 16px 10px;font-family:var(--mono);}
+  .macro-note{font-size:12px;color:var(--t2);display:flex;align-items:flex-start;gap:6px;margin:0 16px 10px;font-family:var(--mono);line-height:1.6;}
+  .macro-note i{flex-shrink:0;margin-top:2px;}
+
+  .reminder-box{background:var(--w-bg);border:1px solid var(--w-bd);border-radius:10px;margin:12px 16px 16px;padding:14px 16px;color:var(--w-t);font-size:14.5px;line-height:1.6;display:flex;gap:12px;align-items:flex-start;font-family:var(--sans);font-weight:500;}
+  .reminder-box i{font-size:22px;flex-shrink:0;margin-top:1px;}
+  .reminder-box a{color:var(--w-t);font-weight:700;text-decoration:underline;}
   .macro-note i{color:var(--purple);font-size:14px;}
 
   .rem-missing{font-size:13px;color:var(--w-t);display:flex;align-items:center;gap:5px;margin:0 16px 10px;font-family:var(--mono);}
@@ -163,22 +191,52 @@
 
   <div class="section-title">2. Nivel de Juego Responsable</div>
   <div class="level-selector">
-    <button class="level-btn lvl0" id="btn-lvl0" onclick="selectLevel(0)">
+    <button class="level-btn lvl0" id="btn-lvl0" onclick="selectLevel(0)" title="Sospecha de posible ludopatía">
       <div class="level-num">0</div>
       <div class="level-name">Sospecha</div>
     </button>
-    <button class="level-btn lvl1" id="btn-lvl1" onclick="selectLevel(1)">
+    <button class="level-btn lvl1" id="btn-lvl1" onclick="selectLevel(1)" title="Busca obtener un beneficio de la compañía">
       <div class="level-num">1</div>
-      <div class="level-name">Nivel 1</div>
+      <div class="level-name">Busca beneficio</div>
     </button>
-    <button class="level-btn lvl2" id="btn-lvl2" onclick="selectLevel(2)">
+    <button class="level-btn lvl2" id="btn-lvl2" onclick="selectLevel(2)" title="Perjudica a un tercero o requiere preguntas preventivas para definir nivel">
       <div class="level-num">2</div>
-      <div class="level-name">Nivel 2</div>
+      <div class="level-name">Perjudica a tercero</div>
     </button>
-    <button class="level-btn lvl3" id="btn-lvl3" onclick="selectLevel(3)">
+    <button class="level-btn lvl3" id="btn-lvl3" onclick="selectLevel(3)" title="Admite tener ludopatía">
       <div class="level-num">3</div>
-      <div class="level-name">Nivel 3</div>
+      <div class="level-name">Admite ludopatía</div>
     </button>
+  </div>
+
+  <div id="scenario-wrap" class="hidden">
+    <div class="section-title">Escenario del caso <span style="color:var(--t3);normal-case">(solo Nivel 1)</span></div>
+    <div class="scenario-selector">
+      <button class="scenario-btn" id="btn-scn-A" onclick="selectScenario('A')" title="Implica una responsabilidad financiera para justificar la agilización de un proceso interno">
+        <div class="scenario-title"><i class="ti ti-clock-dollar"></i>Agilizar proceso interno</div>
+      </button>
+      <button class="scenario-btn" id="btn-scn-B" onclick="selectScenario('B')" title="Interpone una obligación o problema personal como motivo para adquirir un beneficio de Rushbet o usar el juego como salida">
+        <div class="scenario-title"><i class="ti ti-gift"></i>Beneficio o cortesía</div>
+      </button>
+    </div>
+  </div>
+
+  <div id="level2-wrap" class="hidden">
+    <div class="section-title">Canal de contacto <span style="color:var(--t3);normal-case">(solo Nivel 2)</span></div>
+    <div class="channel-selector">
+      <button class="channel-btn" id="btn-ch-chat" onclick="selectChannel('chat')"><i class="ti ti-message-circle"></i> Chat</button>
+      <button class="channel-btn" id="btn-ch-email" onclick="selectChannel('email')"><i class="ti ti-mail"></i> Correo</button>
+    </div>
+
+    <div id="level2-initial-wrap" class="hidden"></div>
+
+    <div id="level2-answer-wrap" class="hidden">
+      <div class="section-title" style="margin-top:20px">Respuesta del jugador</div>
+      <div class="answer-selector">
+        <button class="answer-btn si" id="btn-ans-SI" onclick="selectAnswer('SI')"><i class="ti ti-alert-triangle"></i> Sí, a alguna pregunta</button>
+        <button class="answer-btn no" id="btn-ans-NO" onclick="selectAnswer('NO')"><i class="ti ti-circle-check"></i> No, a todas</button>
+      </div>
+    </div>
   </div>
 
   <div id="ticket-wrap" class="hidden">
@@ -193,14 +251,17 @@
 
   <div class="empty-state" id="empty-state">
     <i class="ti ti-list-check"></i>
-    Selecciona el país y el nivel de Juego Responsable para generar el flag y la macro base.
+    <span id="empty-state-text">Selecciona el país y el nivel de Juego Responsable para generar el flag y la macro base.</span>
   </div>
 
 </div>
 
 <script>
-let curCountry = null; // 'CO' | 'MX' | 'PE'
-let curLevel = null;   // 0 | 1 | 2 | 3
+let curCountry = null;  // 'CO' | 'MX' | 'PE'
+let curLevel = null;    // 0 | 1 | 2 | 3
+let curScenario = null; // 'A' | 'B' (solo aplica para Nivel 1)
+let curChannel = null;  // 'chat' | 'email' (solo aplica para Nivel 2)
+let curAnswer = null;   // 'SI' | 'NO' (solo aplica para Nivel 2)
 
 const LEVEL_CLASS = {0:'lvl0',1:'lvl1',2:'lvl2',3:'lvl3'};
 
@@ -210,28 +271,282 @@ const MACROS = {
   CO: {
     0: `¡Te entendemos! El juego debe ser una experiencia de entretenimiento 🙏
 Si te preocupa tu actividad, te recomendamos revisar las herramientas de Juego Responsable que ofrecemos: [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.co/hc/es/articles/360002777854--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-) o [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.co/hc/es/articles/7115159561751--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla-).
-¡Ánimo! Si necesitas más información, estamos aquí para ayudarte 🤗`
+¡Ánimo! Si necesitas más información, estamos aquí para ayudarte 🤗`,
+    3: `Para nosotros eres muy importante, y así mismo, es muy importante garantizarte las herramientas y recursos necesarios que te permitan crear sanos hábitos de juego responsable.
+Actualmente contamos con diferentes políticas y parámetros que puedes activar directamente desde tu cuenta para tener un periodo de recuperación y enfriamiento.
+Para ello, selecciona tu avatar en la parte superior derecha y luego haz clic en "Juego responsable". Encontrarás varias opciones que se ajustarán a tu objetivo como configurar límites de pérdidas, depósitos o tiempo de juego. Si deseas conocer más sobre el tema, puedes revisar [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.co/hc/es/articles/360002777854--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-)
+También tenemos una opción de Autoexclusión, la cual permite que te des una pausa de las apuestas y tu cuenta queda temporalmente limitada durante el periodo que elijas para tu descanso. Encontrarás más información al respecto en [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.co/hc/es/articles/7115159561751--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla-).
+Finalmente, si optas por recibir guía y apoyo profesional te recomendamos que visites uno de los siguientes servicios:
+
+* Fundación Potencial Humano | +57 3105524569 | [www.fundacionpotencialhumano.org/home](https://www.fundacionpotencialhumano.org/home)
+* Fundación Libérate | +57 (601) 9192800 | [INICIO - Fundación Libérate](https://fundacionliberate.org.co/)
+* Fundación Genesis | +57 3143304648 / (601) 7026929 | [Tratamiento de adicciones / Centro Especializado inicio](https://fundaciongenesis.co/)
+
+¡Ánimo! Seguiremos disponibles para ti en cualquier momento 🙏`
   },
   MX: {
     0: `¡Te entendemos! El juego debe ser una experiencia de entretenimiento 🙏
 Si te preocupa tu actividad, te recomendamos revisar las herramientas de Juego Responsable que ofrecemos: [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.mx/hc/es-419/articles/5723695975831--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-) o [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.mx/hc/es-419/articles/5723695975831--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-).
-¡Ánimo! Si necesitas más información, estamos aquí para ayudarte 🤗`
+¡Ánimo! Si necesitas más información, estamos aquí para ayudarte 🤗`,
+    3: `Para nosotros eres muy importante, y así mismo, es muy importante garantizarte las herramientas y recursos necesarios que te permitan crear sanos hábitos de juego responsable.
+Actualmente contamos con diferentes políticas y parámetros que puedes activar directamente desde tu cuenta para tener un periodo de recuperación y enfriamiento.
+Para ello, selecciona tu avatar en la parte superior derecha y luego haz clic en "Juego responsable". Encontrarás varias opciones que se ajustarán a tu objetivo como configurar límites de pérdidas, depósitos o tiempo de juego. Si deseas conocer más sobre el tema, puedes revisar [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.mx/hc/es-419/articles/5723695975831--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-)
+También tenemos una opción de Autoexclusión, la cual permite que te des una pausa de las apuestas y tu cuenta queda temporalmente limitada durante el periodo que elijas para tu descanso. Encontrarás más información al respecto en [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.mx/hc/es-419/articles/5723695975831--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-)
+Finalmente, si optas por recibir guía y apoyo profesional te recomendamos que visites uno de los siguientes servicios:
+
+* Comisión Nacional contra las adicciones: http://www.juegosysorteos.gob.mx/es/Juegos_y_Sorteos/Estudios_Acerca_del_Tema
+* Centro Nacional para la Prevención y el Control de las Adicciones: https://www.gob.mx/salud%7Cconadic/
+* Directorio de servicios para la Prevención y la Atención del Juego Patológico en México: https://www.pronosticos.gob.mx/Documentos/JuegoResponsable/directorio.pdf
+
+¡Ánimo! Seguiremos disponibles para ti en cualquier momento 🙏`
   },
   PE: {
     0: `¡Te entendemos! El juego debe ser una experiencia de entretenimiento 🙏
 Si te preocupa tu actividad, te recomendamos revisar las herramientas de Juego Responsable que ofrecemos desde la sección de Juego Responsable > Límites o [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.pe/hc/es-419/articles/24417685646103--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla).
-¡Ánimo! Si necesitas más información, estamos aquí para ayudarte 🤗`
+¡Ánimo! Si necesitas más información, estamos aquí para ayudarte 🤗`,
+    3: `Para nosotros eres muy importante, y así mismo, es muy importante garantizarte las herramientas y recursos necesarios que te permitan crear sanos hábitos de juego responsable.
+Actualmente contamos con diferentes políticas y parámetros que puedes activar directamente desde tu cuenta para tener un periodo de recuperación y enfriamiento.
+Para ello, selecciona tu avatar en la parte superior derecha y luego haz clic en "Juego responsable". Encontrarás varias opciones que se ajustarán a tu objetivo como configurar límites de pérdidas, depósitos o tiempo de juego.
+También tenemos una opción de Autoexclusión, la cual permite que te des una pausa de las apuestas y tu cuenta queda temporalmente limitada durante el periodo que elijas para tu descanso. Encontrarás más información al respecto en [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.pe/hc/es-419/articles/24417685646103--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla)
+Finalmente, si optas por recibir guía y apoyo profesional te recomendamos que visites uno de los siguientes servicios:
+
+* Jugadores Anónimos | Teléfono: 800-119-74 | [www.jugadoresanonimosperu.org](https://www.jugadoresanonimosperu.org)
+* FADIA | Teléfono: 941-388-911 | [www.fadia.org.pe](https://www.fadia.org.pe)
+* CEDRO | Teléfono: 01-448-3100 | [CEDRO Perú | Prevención de drogas, salud mental y desarrollo comunitario](http://www.cedro.org.pe/)
+* Línea Verde | Teléfono: 1811 (24/7) | [www.laverde.org.pe](https://www.laverde.org.pe)
+* CIREN | Teléfono: 986-466-197 | [www.ciren.pe](https://www.ciren.pe)
+* Ministerio de Salud | Teléfono: 113 (Emergencia) | [Ministerio de Salud - MINSA](http://www.gob.pe/minsa)
+
+¡Ánimo! Seguiremos disponibles para ti en cualquier momento 🙏`
+  }
+};
+
+// Nivel 1 se divide en dos escenarios posibles, cada uno con su propia macro por país.
+const LEVEL1_SCENARIOS = {
+  A: {
+    label: 'Agilizar proceso interno',
+    macros: {
+      CO: `Comprendemos la situación y estamos totalmente de tu lado 🙏
+Para garantizar un proceso justo y eficiente, estamos siguiendo un sistema de cola de solicitudes. Esto significa que tu solicitud se procesará en el orden en que fue recibida. ¡No te preocupes! Estamos trabajando constantemente para resolver todas las solicitudes lo antes posible.
+Mientras tanto, nos gustaría recordarte la importancia de tener excelentes hábitos de juego responsable y tomar las apuestas como el entretenimiento que son. Si deseas conocer más sobre el tema, puedes revisar [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.co/hc/es/articles/360002777854--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-) o [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.co/hc/es/articles/7115159561751--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla-).
+¡Anímate! Seguiremos disponibles para ti 🤗`,
+      MX: `Comprendemos la situación y estamos totalmente de tu lado 🙏
+Para garantizar un proceso justo y eficiente, estamos siguiendo un sistema de cola de solicitudes. Esto significa que tu solicitud se procesará en el orden en que fue recibida. ¡No te preocupes! Estamos trabajando constantemente para resolver todas las solicitudes lo antes posible.
+Mientras tanto, nos gustaría recordarte la importancia de tener excelentes hábitos de juego responsable y tomar las apuestas como el entretenimiento que son. Si deseas conocer más sobre el tema, puedes revisar [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.mx/hc/es-419/articles/5723695975831--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-) o [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.mx/hc/es-419/articles/5723695975831--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-).
+¡Anímate! Seguiremos disponibles para ti 🤗`,
+      PE: `Comprendemos la situación y estamos totalmente de tu lado 🙏
+Para garantizar un proceso justo y eficiente, estamos siguiendo un sistema de cola de solicitudes. Esto significa que tu solicitud se procesará en el orden en que fue recibida. ¡No te preocupes! Estamos trabajando constantemente para resolver todas las solicitudes lo antes posible.
+Mientras tanto, nos gustaría recordarte la importancia de tener excelentes hábitos de juego responsable y tomar las apuestas como el entretenimiento que son. Si deseas conocer más sobre el tema, puedes revisar la sección de Juego Responsable > Límites o [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.pe/hc/es-419/articles/24417685646103--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla).
+¡Anímate! Seguiremos disponibles para ti 🤗`
+    }
+  },
+  B: {
+    label: 'Beneficio o cortesía',
+    macros: {
+      CO: `Lamentamos y comprendemos totalmente la situación en la que te encuentras.
+Desafortunadamente, no es posible realizar algún tipo de reembolso o brindar una cortesía bajo este concepto 🙏
+Para nosotros eres muy importante, y así mismo, es muy importante garantizarte herramientas que permitan crear sanos hábitos de juego responsable. Actualmente contamos con diferentes políticas y parámetros que puedes activar directamente desde tu cuenta para tener más control sobre tus movimientos.
+Para ello, selecciona tu avatar en la parte superior derecha y luego haz clic en "Juego responsable". Encontrarás varias opciones que se ajustarán a tu objetivo como configurar límites de pérdidas, depósitos o tiempo de juego. Si deseas conocer más sobre el tema, puedes revisar [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.co/hc/es/articles/360002777854--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-)
+También tenemos una opción de Autoexclusión, la cual permite que te des una pausa de las apuestas y tu cuenta queda temporalmente limitada durante el periodo que elijas para tu descanso. Encontrarás más información al respecto en [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.co/hc/es/articles/7115159561751--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla-).
+Finalmente, si optas por recibir guía y apoyo profesional te recomendamos que visites uno de los siguientes servicios:
+
+* Fundación Potencial Humano | +57 3105524569 | [www.fundacionpotencialhumano.org/home](https://www.fundacionpotencialhumano.org/home)
+* Fundación Libérate | +57 (601) 9192800 | [INICIO - Fundación Libérate](https://fundacionliberate.org.co/)
+* Fundación Genesis | +57 3143304648 / (601) 7026929 | [Tratamiento de adicciones / Centro Especializado inicio](https://fundaciongenesis.co/)
+
+¡Ánimo! Nuestro compromiso es fomentar un entorno de juego responsable. Seguiremos disponibles para ti 🤗`,
+      MX: `Lamentamos y comprendemos totalmente la situación en la que te encuentras. Desafortunadamente, no es posible realizar algún tipo de reembolso o brindar una cortesía bajo este concepto 🙏
+Para nosotros eres muy importante, y así mismo, es muy importante garantizarte herramientas que permitan crear sanos hábitos de juego responsable. Actualmente contamos con diferentes políticas y parámetros que puedes activar directamente desde tu cuenta para tener más control sobre tus movimientos.
+Para ello, selecciona tu avatar en la parte superior derecha y luego haz clic en "Juego responsable". Encontrarás varias opciones que se ajustarán a tu objetivo como configurar límites de pérdidas, depósitos o tiempo de juego. Si deseas conocer más sobre el tema, puedes revisar [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.mx/hc/es-419/articles/5723695975831--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-)
+También tenemos una opción de Autoexclusión, la cual permite que te des una pausa de las apuestas y tu cuenta queda temporalmente limitada durante el periodo que elijas para tu descanso. Encontrarás más información al respecto en [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.mx/hc/es-419/articles/5723695975831--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-)
+Finalmente, si optas por recibir guía y apoyo profesional te recomendamos que visites uno de los siguientes servicios:
+
+* Comisión Nacional contra las adicciones: http://www.juegosysorteos.gob.mx/es/Juegos_y_Sorteos/Estudios_Acerca_del_Tema
+* Centro Nacional para la Prevención y el Control de las Adicciones: https://www.gob.mx/salud%7Cconadic/
+* Directorio de servicios para la Prevención y la Atención del Juego Patológico en México: https://www.pronosticos.gob.mx/Documentos/JuegoResponsable/directorio.pdf
+
+¡Ánimo! Nuestro compromiso es fomentar un entorno de juego responsable. Seguiremos disponibles para ti 🤗`,
+      PE: `Lamentamos y comprendemos totalmente la situación en la que te encuentras. Desafortunadamente, no es posible realizar algún tipo de reembolso o brindar una cortesía bajo este concepto 🙏
+Para nosotros eres muy importante, y así mismo, es muy importante garantizarte herramientas que permitan crear sanos hábitos de juego responsable. Actualmente contamos con diferentes políticas y parámetros que puedes activar directamente desde tu cuenta para tener más control sobre tus movimientos.
+Para ello, selecciona tu avatar en la parte superior derecha y luego haz clic en "Juego responsable". Encontrarás varias opciones que se ajustarán a tu objetivo como configurar límites de pérdidas, depósitos o tiempo de juego.
+También tenemos una opción de Autoexclusión, la cual permite que te des una pausa de las apuestas y tu cuenta queda temporalmente limitada durante el periodo que elijas para tu descanso. Encontrarás más información al respecto en [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.pe/hc/es-419/articles/24417685646103--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla)
+Finalmente, si optas por recibir guía y apoyo profesional te recomendamos que visites uno de los siguientes servicios:
+
+* Jugadores Anónimos | Teléfono: 800-119-74 | [www.jugadoresanonimosperu.org](https://www.jugadoresanonimosperu.org)
+* FADIA | Teléfono: 941-388-911 | [www.fadia.org.pe](https://www.fadia.org.pe)
+* CEDRO | Teléfono: 01-448-3100 | [CEDRO Perú | Prevención de drogas, salud mental y desarrollo comunitario](http://www.cedro.org.pe/)
+* Línea Verde | Teléfono: 1811 (24/7) | [www.laverde.org.pe](https://www.laverde.org.pe)
+* CIREN | Teléfono: 986-466-197 | [www.ciren.pe](https://www.ciren.pe)
+* Ministerio de Salud | Teléfono: 113 (Emergencia) | [Ministerio de Salud - MINSA](http://www.gob.pe/minsa)
+
+¡Ánimo! Nuestro compromiso es fomentar un entorno de juego responsable. Seguiremos disponibles para ti 🤗`
+    }
+  }
+};
+
+// Nivel 2: la macro inicial (preguntas clave) varía según canal de contacto;
+// según la respuesta del jugador se envía una macro de seguimiento distinta,
+// y el flag final puede terminar en Nivel 2 (NO) o escalar a Nivel 3 (SI).
+const LEVEL2 = {
+  introShort: 'Envía estas preguntas clave para evaluar el avance del problema de juego.',
+  reminder: 'Reporta este caso en #lat_ops_compliance_legal usando el WF LAT Responsible Gaming después de enviar la macro establecida.',
+  reminderLink: 'https://rsi.enterprise.slack.com/archives/CDNJF7HNZ',
+  chatInitial: `Primero, quisiera agradecerte por contactarnos y reportarnos la situación.
+
+Nos gustaría comentarte que estamos realmente comprometidos con ayudar a nuestros usuarios a jugar con responsabilidad para fomentar una relación a largo plazo 💙
+
+Con el ánimo de darte una guía más apropiada, me ayudarías respondiendo las siguientes preguntas por favor:
+
+1️⃣¿Has dejado de cumplir con responsabilidades familiares, laborales o sociales debido al tiempo que pasas jugando?
+
+2️⃣¿Has pedido dinero prestado o vendido algo para poder seguir apostando?
+
+3️⃣¿Sientes que el juego es una forma de escapar de problemas o aliviar emociones como la ansiedad o la tristeza?
+
+4️⃣¿Has experimentado sentimientos de culpa o angustia antes de jugar o después de haber jugado?
+
+Estaré muy pendiente de tus respuestas para que podamos proceder apropiadamente 🙏`,
+  emailInitial: {
+    CO: `¡Hola, ____! 
+
+Agradecemos que nos contactes y lamentamos la situación que nos reportas.
+Estamos realmente comprometidos con ayudar a nuestros usuarios a jugar con responsabilidad para fomentar una relación a largo plazo 💙 Recuerda que es importante tomar las apuestas como entretenimiento y diversión.
+Por esta razón, nos gustaría recordarte algunas de las opciones que tienes a tu disposición:
+💭 Puedes tomarte un momento para reevaluar si tienes una adicción al juego y de ser necesario pedir ayuda. Conoce más en: [¿Tengo adicción al juego?](https://ayuda.rushbet.co/hc/es/articles/360002804333--Tengo-adicci%C3%B3n-al-juego-) o realiza este test anónimo de Coljuegos para comprender mejor tu situación actual [Formulario Anónimo](https://tomaelcontrol.coljuegos.gov.co/formulario/)
+😎 Puedes ajustar diferentes limites en tu cuenta que te permitan tener sanos hábitos de juego, tales como limites depósito, pérdidas y tiempo. Conoce más en: [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.co/hc/es/articles/360002777854--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-)
+💤 Puedes tomarte un descanso de las apuestas y juegos de casino en línea activando una auto exclusión temporal o indefinida. Conoce más en: [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.co/hc/es/articles/7115159561751--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla-)
+💪🏻 Si tú o alguien que conoces tiene o está desarrollando un problema con el juego, y desea ayuda, hay muchos recursos disponibles de apoyo, te recomendamos visitar alguno de los servicios mencionados a continuación:
+
+* Fundación Potencial Humano | +57 3105524569 | [www.fundacionpotencialhumano.org/home](https://www.fundacionpotencialhumano.org/home)
+* Fundación Libérate | +57 (601) 9192800 | [INICIO - Fundación Libérate](https://fundacionliberate.org.co/)
+* Fundación Genesis | +57 3143304648 / (601) 7026929 | [Tratamiento de adicciones / Centro Especializado inicio](https://fundaciongenesis.co/)
+
+Para terminar y con el ánimo de darte una guía sobre tus hábitos de juegos, nos gustaría que nos respondas las siguientes preguntas:
+1️⃣¿Has dejado de cumplir con responsabilidades familiares, laborales o sociales debido al tiempo que pasas jugando?
+2️⃣¿Has pedido dinero prestado o vendido algo para poder seguir apostando?
+3️⃣¿Sientes que el juego es una forma de escapar de problemas o aliviar emociones como la ansiedad o la tristeza?
+4️⃣¿Has experimentado sentimientos de culpa o angustia antes de jugar o después de haber jugado?
+
+Cualquier inquietud, no dudes en responder a este correo.`,
+    MX: `¡Hola, ____!
+Agradecemos que nos contactes y lamentamos la situación que nos reportas.
+Estamos realmente comprometidos con ayudar a nuestros usuarios a jugar con responsabilidad para fomentar una relación a largo plazo 💙 Recuerda que es importante tomar las apuestas como entretenimiento y diversión.
+Por esta razón, nos gustaría recordarte algunas de las opciones que tienes a tu disposición:
+💭 Puedes tomarte un momento para reevaluar si tienes una adicción al juego y de ser necesario pedir ayuda. Conoce más en: [¿Tengo adicción al juego?](https://ayuda.rushbet.co/hc/es/articles/360002804333--Tengo-adicci%C3%B3n-al-juego-)
+😎 Puedes ajustar diferentes limites en tu cuenta que te permitan tener sanos hábitos de juego, tales como limites depósito, pérdidas y tiempo. Conoce más en: [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.co/hc/es/articles/360002777854--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-)
+💤 Puedes tomarte un descanso de las apuestas y juegos de casino en línea activando una auto exclusión temporal o indefinida. Conoce más en: [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.co/hc/es/articles/7115159561751--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla-)
+💪🏻 Si tú o alguien que conoces tiene o está desarrollando un problema con el juego, y desea ayuda, hay muchos recursos disponibles de apoyo, te recomendamos visitar alguno de los servicios mencionados a continuación:
+
+* Comisión Nacional contra las adicciones: http://www.juegosysorteos.gob.mx/es/Juegos_y_Sorteos/Estudios_Acerca_del_Tema
+* Centro Nacional para la Prevención y el Control de las Adicciones: https://www.gob.mx/salud%7Cconadic/
+* Directorio de servicios para la Prevención y la Atención del Juego Patológico en México: https://www.pronosticos.gob.mx/Documentos/JuegoResponsable/directorio.pdf
+
+Para terminar y con el ánimo de darte una guía sobre tus hábitos de juegos, nos gustaría que nos respondas las siguientes preguntas:
+1️⃣¿Has dejado de cumplir con responsabilidades familiares, laborales o sociales debido al tiempo que pasas jugando?
+2️⃣¿Has pedido dinero prestado o vendido algo para poder seguir apostando?
+3️⃣¿Sientes que el juego es una forma de escapar de problemas o aliviar emociones como la ansiedad o la tristeza?
+4️⃣¿Has experimentado sentimientos de culpa o angustia antes de jugar o después de haber jugado?
+
+Cualquier inquietud, no dudes en responder a este correo.`,
+    PE: `¡Hola, ____!
+Agradecemos que nos contactes y lamentamos la situación que nos reportas.
+Estamos realmente comprometidos con ayudar a nuestros usuarios a jugar con responsabilidad para fomentar una relación a largo plazo 💙 Recuerda que es importante tomar las apuestas como entretenimiento y diversión.
+Por esta razón, nos gustaría recordarte algunas de las opciones que tienes a tu disposición:
+💤 Puedes tomarte un descanso de las apuestas y juegos de casino en línea activando una auto exclusión temporal o indefinida. Conoce más en: [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.pe/hc/es-419/articles/24417685646103--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla)
+💭 Puedes tomarte un momento para reevaluar si tienes una adicción al juego y de ser necesario pedir ayuda. Conoce más en: [¿Tengo adicción al juego?](https://ayuda.rushbet.pe/hc/es-419/articles/24973123921175--Tengo-adicci%C3%B3n-al-juego-Ayuda-y-test)
+💪🏻 Si tú o alguien que conoces tiene o está desarrollando un problema con el juego, y desea ayuda, hay muchos recursos disponibles de apoyo, te recomendamos visitar alguno de los servicios mencionados a continuación:
+
+* Jugadores Anónimos | Teléfono: 800-119-74 | [www.jugadoresanonimosperu.org](https://www.jugadoresanonimosperu.org)
+* FADIA | Teléfono: 941-388-911 | [www.fadia.org.pe](https://www.fadia.org.pe)
+* CEDRO | Teléfono: 01-448-3100 | [CEDRO Perú | Prevención de drogas, salud mental y desarrollo comunitario](http://www.cedro.org.pe/)
+* Línea Verde | Teléfono: 1811 (24/7) | [www.laverde.org.pe](https://www.laverde.org.pe)
+* CIREN | Teléfono: 986-466-197 | [www.ciren.pe](https://www.ciren.pe)
+* Ministerio de Salud | Teléfono: 113 (Emergencia) | [Ministerio de Salud - MINSA](http://www.gob.pe/minsa)
+
+Para terminar y con el ánimo de darte una guía sobre tus hábitos de juegos, nos gustaría que nos respondas las siguientes preguntas:
+1️⃣¿Has dejado de cumplir con responsabilidades familiares, laborales o sociales debido al tiempo que pasas jugando?
+2️⃣¿Has pedido dinero prestado o vendido algo para poder seguir apostando?
+3️⃣¿Sientes que el juego es una forma de escapar de problemas o aliviar emociones como la ansiedad o la tristeza?
+4️⃣¿Has experimentado sentimientos de culpa o angustia antes de jugar o después de haber jugado?
+
+Cualquier inquietud, no dudes en responder a este correo.`
+  },
+  // El jugador responde "SI" a alguna pregunta: se ofrecen recursos y ayuda, el flag escala a Nivel 3.
+  followupSi: {
+    CO: `¡Gracias tus respuestas! 
+Lamentamos que estés pasando por esta situación. Eres importante para nosotros, y teniendo en cuenta que nuestro compromiso es fomentar un entorno de juego responsable, nos gustaría recomendarte algunas herramientas que puedes usar para mejorar tus hábitos de juego:
+😎 Puedes ajustar diferentes limites en tu cuenta que te permitan tener sanos hábitos de juego, tales como limites depósito, pérdidas y tiempo. Conoce más en: [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.co/hc/es/articles/360002777854--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-)
+💭 Puedes tomarte un momento para reevaluar si es posible que estés desarrollando problemas de juego ¡Siempre será valioso pedir ayuda! Conoce más en: [¿Tengo adicción al juego?](https://ayuda.rushbet.co/hc/es/articles/360002804333--Tengo-adicci%C3%B3n-al-juego-) o realiza este test anónimo de Coljuegos para comprender mejor tu situación actual [Formulario Anónimo](https://tomaelcontrol.coljuegos.gov.co/formulario/)
+💤 Puedes tomarte un descanso de las apuestas y juegos de casino en línea activando una autoexclusión temporal o indefinida. Conoce más en: [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.co/hc/es/articles/7115159561751--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla-)
+Recuerda que si tú o alguien que conoces tiene o está desarrollando un problema con el juego, y desea ayuda, hay muchos recursos disponibles de apoyo, te recomendamos visitar alguno de los servicios mencionados a continuación:
+
+* Fundación Potencial Humano | +57 3105524569 | [www.fundacionpotencialhumano.org/home](https://www.fundacionpotencialhumano.org/home)
+* Fundación Libérate | +57 (601) 9192800 | [INICIO - Fundación Libérate](https://fundacionliberate.org.co/)
+* Fundación Genesis | +57 3143304648 / (601) 7026929 | [Tratamiento de adicciones / Centro Especializado inicio](https://fundaciongenesis.co/)`,
+    MX: `¡Gracias tus respuestas! 
+Lamentamos que estés pasando por esta situación. Eres importante para nosotros, y teniendo en cuenta que nuestro compromiso es fomentar un entorno de juego responsable, nos gustaría recomendarte algunas herramientas que puedes usar para mejorar tus hábitos de juego:
+😎 Puedes ajustar diferentes limites en tu cuenta que te permitan tener sanos hábitos de juego, tales como limites depósito, pérdidas y tiempo. Conoce más en: [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.co/hc/es/articles/360002777854--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-)
+💤 Puedes tomarte un descanso de las apuestas y juegos de casino en línea activando una auto exclusión temporal o indefinida. Conoce más en: [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.co/hc/es/articles/7115159561751--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla-)
+💭 Puedes tomarte un momento para reevaluar si tienes una adicción al juego y de ser necesario pedir ayuda. Conoce más en: [¿Tengo adicción al juego?](https://ayuda.rushbet.co/hc/es/articles/360002804333--Tengo-adicci%C3%B3n-al-juego-)
+Recuerda que si tú o alguien que conoces tiene o está desarrollando un problema con el juego, y desea ayuda, hay muchos recursos disponibles de apoyo, te recomendamos visitar alguno de los servicios mencionados a continuación:
+
+* Comisión Nacional contra las adicciones: http://www.juegosysorteos.gob.mx/es/Juegos_y_Sorteos/Estudios_Acerca_del_Tema
+* Centro Nacional para la Prevención y el Control de las Adicciones: https://www.gob.mx/salud%7Cconadic/
+* Directorio de servicios para la Prevención y la Atención del Juego Patológico en México: https://www.pronosticos.gob.mx/Documentos/JuegoResponsable/directorio.pdf`
+    // PE: aún no definida — se agregará próximamente.
+  },
+  // El jugador responde "NO" a todas: se personaliza según el motivo del contacto (queja / solicitud de bono), el flag se mantiene en Nivel 2.
+  followupNo: {
+    CO: `___________________________________
+
+😎 Puedes ajustar diferentes limites en tu cuenta que te permitan tener sanos hábitos de juego, tales como limites depósito, pérdidas y tiempo. Conoce más en: [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.co/hc/es/articles/360002777854--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-)
+💭 Puedes tomarte un momento para reevaluar si es posible que estés desarrollando problemas de juego ¡Siempre será valioso pedir ayuda! Conoce más en: [¿Tengo adicción al juego?](https://ayuda.rushbet.co/hc/es/articles/360002804333--Tengo-adicci%C3%B3n-al-juego-) o realiza este test anónimo de Coljuegos para comprender mejor tu situación actual [Formulario Anónimo](https://tomaelcontrol.coljuegos.gov.co/formulario/)
+💤 Puedes tomarte un descanso de las apuestas y juegos de casino en línea activando una autoexclusión temporal o indefinida. Conoce más en: [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.co/hc/es/articles/7115159561751--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla-)
+Recuerda que si tú o alguien que conoces tiene o está desarrollando un problema con el juego, y desea ayuda, hay muchos recursos disponibles de apoyo, te recomendamos visitar alguno de los servicios mencionados a continuación:
+
+* Fundación Potencial Humano | +57 3105524569 | [www.fundacionpotencialhumano.org/home](https://www.fundacionpotencialhumano.org/home)
+* Fundación Libérate | +57 (601) 9192800 | [INICIO - Fundación Libérate](https://fundacionliberate.org.co/)
+* Fundación Genesis | +57 3143304648 / (601) 7026929 | [Tratamiento de adicciones / Centro Especializado inicio](https://fundaciongenesis.co/)`,
+    MX: `¡Gracias tus respuestas! 
+
+___________________________________
+
+Nos gustaría recordarte que nuestro compromiso es fomentar un entorno de juego responsable, podemos recomendarte algunas herramientas que puedes usar para mejorar tus hábitos de juego:
+😎 Puedes ajustar diferentes limites en tu cuenta que te permitan tener sanos hábitos de juego, tales como limites depósito, pérdidas y tiempo. Conoce más en: [¿Qué límites puedo aplicar a mi cuenta y cómo los activo?](https://ayuda.rushbet.co/hc/es/articles/360002777854--Qu%C3%A9-l%C3%ADmites-puedo-aplicar-a-mi-cuenta-y-c%C3%B3mo-los-activo-)
+💤 Puedes tomarte un descanso de las apuestas y juegos de casino en línea activando una auto exclusión temporal o indefinida. Conoce más en: [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.co/hc/es/articles/7115159561751--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla-)
+💭 Puedes tomarte un momento para reevaluar si tienes una adicción al juego y de ser necesario pedir ayuda. Conoce más en: [¿Tengo adicción al juego?](https://ayuda.rushbet.co/hc/es/articles/360002804333--Tengo-adicci%C3%B3n-al-juego-)
+Recuerda que si tú o alguien que conoces tiene o está desarrollando un problema con el juego, y desea ayuda, hay muchos recursos disponibles de apoyo, te recomendamos visitar alguno de los servicios mencionados a continuación:
+
+* Comisión Nacional contra las adicciones: http://www.juegosysorteos.gob.mx/es/Juegos_y_Sorteos/Estudios_Acerca_del_Tema
+* Centro Nacional para la Prevención y el Control de las Adicciones: https://www.gob.mx/salud%7Cconadic/
+* Directorio de servicios para la Prevención y la Atención del Juego Patológico en México: https://www.pronosticos.gob.mx/Documentos/JuegoResponsable/directorio.pdf`,
+    PE: `___________________________________
+
+Nos gustaría recordarte que nuestro compromiso es fomentar un entorno de juego responsable, podemos recomendarte algunas herramientas que puedes usar para mejorar tus hábitos de juego:
+💤 Puedes tomarte un descanso de las apuestas y juegos de casino en línea activando una auto exclusión temporal o indefinida. Conoce más en: [¿Qué es la "Auto-Exclusión" y cómo puedo activarla?](https://ayuda.rushbet.pe/hc/es-419/articles/24417685646103--Qu%C3%A9-es-la-Auto-Exclusi%C3%B3n-y-c%C3%B3mo-puedo-activarla)
+💭 Puedes tomarte un momento para reevaluar si tienes una adicción al juego y de ser necesario pedir ayuda. Conoce más en: [¿Tengo adicción al juego?](https://ayuda.rushbet.pe/hc/es-419/articles/24973123921175--Tengo-adicci%C3%B3n-al-juego-Ayuda-y-test)
+Recuerda que si tú o alguien que conoces tiene o está desarrollando un problema con el juego, y desea ayuda, hay muchos recursos disponibles de apoyo, te recomendamos visitar alguno de los servicios mencionados a continuación:
+
+* Jugadores Anónimos | Teléfono: 800-119-74 | [www.jugadoresanonimosperu.org](https://www.jugadoresanonimosperu.org)
+* FADIA | Teléfono: 941-388-911 | [www.fadia.org.pe](https://www.fadia.org.pe)
+* CEDRO | Teléfono: 01-448-3100 | [CEDRO Perú | Prevención de drogas, salud mental y desarrollo comunitario](http://www.cedro.org.pe/)
+* Línea Verde | Teléfono: 1811 (24/7) | [www.laverde.org.pe](https://www.laverde.org.pe)
+* CIREN | Teléfono: 986-466-197 | [www.ciren.pe](https://www.ciren.pe)
+* Ministerio de Salud | Teléfono: 113 (Emergencia) | [Ministerio de Salud - MINSA](http://www.gob.pe/minsa)`
   }
 };
 
 const COUNTRY_NAMES = { CO: 'Colombia', MX: 'México', PE: 'Perú' };
-const LEVEL_NAMES = { 0: 'Nivel 0 - Sospecha', 1: 'Nivel 1', 2: 'Nivel 2', 3: 'Nivel 3' };
+const LEVEL_NAMES = { 0: 'Nivel 0 - Sospecha', 1: 'Nivel 1 - Busca beneficio', 2: 'Nivel 2 - Perjudica a tercero', 3: 'Nivel 3 - Admite ludopatía' };
 
 let lastMacroRaw = '';
+let lastMacroRawL2Init = '';
 
 function mdToHtml(text) {
   const escaped = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return escaped.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  let html = escaped.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  html = html.replace(/^_{3,}$/gm, '<span class="placeholder-hl">[ Personaliza aquí según la queja o solicitud del cliente ]</span>');
+  return html;
 }
 
 function selectCountry(c) {
@@ -242,7 +557,33 @@ function selectCountry(c) {
 
 function selectLevel(l) {
   curLevel = l;
+  curScenario = null;
+  curChannel = null;
+  curAnswer = null;
+  ['A','B'].forEach(k => document.getElementById(`btn-scn-${k}`).classList.remove('active'));
+  ['chat','email'].forEach(k => document.getElementById(`btn-ch-${k}`).classList.remove('active'));
+  ['SI','NO'].forEach(k => document.getElementById(`btn-ans-${k}`).classList.remove('active'));
   [0,1,2,3].forEach(k => document.getElementById(`btn-lvl${k}`).classList.toggle('active', k === l));
+  updateAll();
+}
+
+function selectScenario(s) {
+  curScenario = s;
+  ['A','B'].forEach(k => document.getElementById(`btn-scn-${k}`).classList.toggle('active', k === s));
+  updateAll();
+}
+
+function selectChannel(ch) {
+  curChannel = ch;
+  curAnswer = null;
+  ['SI','NO'].forEach(k => document.getElementById(`btn-ans-${k}`).classList.remove('active'));
+  ['chat','email'].forEach(k => document.getElementById(`btn-ch-${k}`).classList.toggle('active', k === ch));
+  updateAll();
+}
+
+function selectAnswer(a) {
+  curAnswer = a;
+  ['SI','NO'].forEach(k => document.getElementById(`btn-ans-${k}`).classList.toggle('active', k === a));
   updateAll();
 }
 
@@ -253,16 +594,62 @@ function setView(v) {
 }
 
 function updateAll() {
+  const scenarioWrap = document.getElementById('scenario-wrap');
+  const level2Wrap = document.getElementById('level2-wrap');
+  const level2InitialWrap = document.getElementById('level2-initial-wrap');
+  const level2AnswerWrap = document.getElementById('level2-answer-wrap');
   const ticketWrap = document.getElementById('ticket-wrap');
   const resultFull = document.getElementById('result-wrap-full');
   const resultSimple = document.getElementById('result-wrap-simple');
   const empty = document.getElementById('empty-state');
+  const emptyText = document.getElementById('empty-state-text');
 
-  if (curCountry === null || curLevel === null) {
+  scenarioWrap.classList.toggle('hidden', curLevel !== 1);
+  level2Wrap.classList.toggle('hidden', curLevel !== 2);
+
+  // ---- Bloque de Nivel 2: macro inicial + selector de respuesta ----
+  if (curLevel === 2 && curChannel) {
+    level2InitialWrap.classList.remove('hidden');
+    let initRaw = null;
+    let initLabel = '';
+    if (curChannel === 'chat') {
+      initRaw = LEVEL2.chatInitial;
+      initLabel = 'Macro inicial (chat — misma para los 3 países)';
+    } else {
+      initRaw = curCountry ? LEVEL2.emailInitial[curCountry] : null;
+      initLabel = 'Macro inicial (correo)';
+    }
+    lastMacroRawL2Init = initRaw || '';
+    level2InitialWrap.innerHTML = initRaw ? `
+      <div class="out-item" style="margin-top:14px">
+        <div class="out-header">
+          <span class="out-label"><i class="ti ti-message-chatbot"></i>${initLabel}</span>
+          <button class="copy-btn-sm" onclick="copyL2InitRaw(this)"><i class="ti ti-copy" style="font-size:13px"></i> Copiar</button>
+        </div>
+        <div class="out-text msg">${mdToHtml(initRaw)}</div>
+      </div>
+      <div class="macro-note"><i class="ti ti-info-circle"></i>${LEVEL2.introShort}</div>
+    ` : `<div class="pending-box" style="margin-top:14px"><i class="ti ti-hourglass-empty"></i>Selecciona también el país para ver la macro de correo.</div>`;
+    level2AnswerWrap.classList.remove('hidden');
+  } else {
+    level2InitialWrap.classList.add('hidden');
+    level2InitialWrap.innerHTML = '';
+    level2AnswerWrap.classList.add('hidden');
+  }
+
+  const needsScenario = curLevel === 1 && curScenario === null;
+  const needsLevel2Flow = curLevel === 2 && (curChannel === null || curAnswer === null);
+
+  if (curCountry === null || curLevel === null || needsScenario || needsLevel2Flow) {
     ticketWrap.classList.add('hidden');
     resultFull.innerHTML = '';
     resultSimple.innerHTML = '';
     empty.classList.remove('hidden');
+    emptyText.textContent = needsScenario
+      ? 'Selecciona el escenario del caso (Nivel 1) para continuar.'
+      : needsLevel2Flow
+        ? 'Selecciona el canal de contacto y la respuesta del jugador para continuar.'
+        : 'Selecciona el país y el nivel de Juego Responsable para generar el flag y la macro base.';
     return;
   }
 
@@ -272,17 +659,55 @@ function updateAll() {
   const ticket = document.getElementById('t-case').value.trim();
   const ticketDisplay = ticket || '__';
   const missing = !ticket;
-  const lvlClass = LEVEL_CLASS[curLevel];
-  const flagText = `Responsible Gaming - Level ${curLevel} Ticket# ${ticketDisplay}`;
-  const macroRaw = (MACROS[curCountry] && MACROS[curCountry][curLevel]) ? MACROS[curCountry][curLevel] : null;
+
+  // El nivel efectivo del flag puede diferir del nivel navegado (solo Nivel 2 -> puede escalar a 3)
+  const effectiveLevel = (curLevel === 2) ? (curAnswer === 'SI' ? 3 : 2) : curLevel;
+  const lvlClass = LEVEL_CLASS[effectiveLevel];
+  const flagText = `Responsible Gaming - Level ${effectiveLevel} Ticket# ${ticketDisplay}`;
+
+  let extraLabel = '';
+  if (curLevel === 1 && curScenario) {
+    extraLabel = ` · ${LEVEL1_SCENARIOS[curScenario].label}`;
+  } else if (curLevel === 2) {
+    extraLabel = ` · ${curChannel === 'chat' ? 'Chat' : 'Correo'} · Respuesta: ${curAnswer === 'SI' ? 'Sí' : 'No'}`;
+  }
+
+  let macroRaw = null;
+  if (curLevel === 1) {
+    macroRaw = (curScenario && LEVEL1_SCENARIOS[curScenario]) ? LEVEL1_SCENARIOS[curScenario].macros[curCountry] : null;
+  } else if (curLevel === 2) {
+    macroRaw = curAnswer === 'SI' ? (LEVEL2.followupSi[curCountry] || null) : (LEVEL2.followupNo[curCountry] || null);
+  } else {
+    macroRaw = (MACROS[curCountry] && MACROS[curCountry][curLevel]) ? MACROS[curCountry][curLevel] : null;
+  }
   lastMacroRaw = macroRaw || '';
+
+  const pendingMsg = curLevel === 2
+    ? `Aún no hay macro base definida para la respuesta "${curAnswer === 'SI' ? 'Sí' : 'No'}" en ${COUNTRY_NAMES[curCountry]}. Se agregará próximamente.`
+    : `Aún no hay macro base definida para ${LEVEL_NAMES[curLevel]} en ${COUNTRY_NAMES[curCountry]}. Se agregará próximamente.`;
+
+  let personalizeNoteHtml;
+  if (curLevel === 2) {
+    personalizeNoteHtml = curAnswer === 'NO'
+      ? `<div class="macro-note"><i class="ti ti-info-circle"></i>Esta macro tiene un espacio para personalizar (según la queja o solicitud del cliente) antes de enviarla.</div>`
+      : `<div class="macro-note"><i class="ti ti-circle-check" style="color:var(--s-t)"></i>Envía esta macro tal cual, no requiere personalización.</div>`;
+  } else {
+    personalizeNoteHtml = `<div class="macro-note"><i class="ti ti-info-circle"></i>Esta es una base de macro: personalízala según el caso antes de enviarla.</div>`;
+  }
+
+  const reminderBlock = (curLevel === 2) ? `
+      <div class="reminder-box">
+        <i class="ti ti-bell-ringing"></i>
+        <div>Reporta este caso en <a href="${LEVEL2.reminderLink}" target="_blank" rel="noopener">#lat_ops_compliance_legal</a> usando el WF LAT Responsible Gaming después de enviar la macro establecida.</div>
+      </div>
+  ` : '';
 
   const flagBlock = `
     <div class="flag-card ${lvlClass}">
       <div class="flag-badge-row">
         <i class="ti ti-flag-3" style="font-size:18px;color:var(--t2)"></i>
         <span class="flag-badge ${lvlClass}">Problem Gambler</span>
-        <span style="font-size:12px;color:var(--t3);font-family:var(--mono)">${COUNTRY_NAMES[curCountry]} · ${LEVEL_NAMES[curLevel]}</span>
+        <span style="font-size:12px;color:var(--t3);font-family:var(--mono)">${COUNTRY_NAMES[curCountry]} · ${LEVEL_NAMES[effectiveLevel]}${extraLabel}</span>
       </div>
       ${missing ? '<div class="rem-missing"><i class="ti ti-alert-circle" style="font-size:13px"></i> Completa el ticket para habilitar la copia del comentario</div>' : ''}
       <div class="out-item">
@@ -300,12 +725,14 @@ function updateAll() {
         </div>
         <div class="out-text msg" id="txt-macro">${mdToHtml(macroRaw)}</div>
       </div>
-      <div class="macro-note"><i class="ti ti-info-circle"></i>Esta es una base de macro: personalízala según el caso antes de enviarla.</div>
+      ${personalizeNoteHtml}
+      ${reminderBlock}
       ` : `
       <div class="pending-box">
         <i class="ti ti-hourglass-empty"></i>
-        Aún no hay macro base definida para ${LEVEL_NAMES[curLevel]} en ${COUNTRY_NAMES[curCountry]}. Se agregará próximamente.
+        ${pendingMsg}
       </div>
+      ${reminderBlock}
       `}
     </div>
   `;
@@ -318,6 +745,7 @@ function updateAll() {
     <div class="simple-badge-row">
       <i class="ti ti-flag-3" style="font-size:16px;color:var(--t2)"></i>
       <span class="flag-badge ${lvlClass}">Problem Gambler</span>
+      <span style="font-size:12px;color:var(--t3);font-family:var(--mono)">${COUNTRY_NAMES[curCountry]} · ${LEVEL_NAMES[effectiveLevel]}${extraLabel}</span>
     </div>
     ${missing ? '<div class="rem-missing"><i class="ti ti-alert-circle" style="font-size:13px"></i> Completa el ticket para habilitar la copia del comentario</div>' : ''}
     <div class="simple-card">
@@ -330,11 +758,12 @@ function updateAll() {
   `;
 
   if (macroRaw) {
+    const simpleMacroSub = (curLevel === 2 && curAnswer === 'SI') ? 'Envía tal cual, no requiere personalización' : 'Base de macro — personalizar antes de enviar';
     simpleHtml += `
     <div class="simple-card">
       <div class="simple-card-left">
         <div class="simple-card-title"><i class="ti ti-message-chatbot"></i>Macro para el cliente</div>
-        <div class="simple-card-sub">Base de macro — personalizar antes de enviar</div>
+        <div class="simple-card-sub">${simpleMacroSub}</div>
       </div>
       <button class="copy-btn-sm" onclick="copyRaw(this)"><i class="ti ti-copy" style="font-size:13px"></i> Copiar</button>
     </div>`;
@@ -342,8 +771,12 @@ function updateAll() {
     simpleHtml += `
     <div class="pending-box">
       <i class="ti ti-hourglass-empty"></i>
-      Aún no hay macro base definida para ${LEVEL_NAMES[curLevel]} en ${COUNTRY_NAMES[curCountry]}. Se agregará próximamente.
+      ${pendingMsg}
     </div>`;
+  }
+
+  if (curLevel === 2) {
+    simpleHtml += reminderBlock;
   }
 
   resultSimple.innerHTML = simpleHtml;
@@ -358,6 +791,10 @@ function copyRaw(btn) {
   navigator.clipboard.writeText(lastMacroRaw.trim()).then(() => flashCopied(btn));
 }
 
+function copyL2InitRaw(btn) {
+  navigator.clipboard.writeText(lastMacroRawL2Init.trim()).then(() => flashCopied(btn));
+}
+
 function flashCopied(btn) {
   const original = btn.innerHTML;
   btn.innerHTML = '<i class="ti ti-check" style="font-size:13px"></i> ¡Copiado!';
@@ -368,9 +805,15 @@ function resetAll() {
   if (!confirm('¿Iniciar un nuevo caso? Se borrará el progreso actual.')) return;
   curCountry = null;
   curLevel = null;
+  curScenario = null;
+  curChannel = null;
+  curAnswer = null;
   document.getElementById('t-case').value = '';
   ['CO','MX','PE'].forEach(k => document.getElementById(`btn-${k}`).classList.remove('active'));
   [0,1,2,3].forEach(k => document.getElementById(`btn-lvl${k}`).classList.remove('active'));
+  ['A','B'].forEach(k => document.getElementById(`btn-scn-${k}`).classList.remove('active'));
+  ['chat','email'].forEach(k => document.getElementById(`btn-ch-${k}`).classList.remove('active'));
+  ['SI','NO'].forEach(k => document.getElementById(`btn-ans-${k}`).classList.remove('active'));
   updateAll();
 }
 
